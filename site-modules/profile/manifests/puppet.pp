@@ -18,8 +18,9 @@ class profile::puppet {
     mode   => '0755',
   }
 
-  file { '/usr/local/bin/papply':
-    source => 'puppet:///modules/profile/puppet/papply.sh',
-    mode   => '0755',
-  }
+  ## TODO: this is seems not to be used
+  #file { '/usr/local/bin/papply':
+  #  source => 'puppet:///modules/profile/puppet/papply.sh',
+  #  mode   => '0755',
+  #}
 }
