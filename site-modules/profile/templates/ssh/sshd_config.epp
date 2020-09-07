@@ -1,6 +1,8 @@
 <%- | Array[String] $allow_users | -%>
 # !!! File is managed by Puppet. Do not manually edit. !!!
 
+# TODO: This file should be based on the default Ubuntu file
+
 AcceptEnv LANG LC_*
 ChallengeResponseAuthentication no
 GSSAPIAuthentication no
