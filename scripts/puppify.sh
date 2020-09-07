@@ -9,6 +9,8 @@ the control repo branch BRANCH. Use EXISTINGUSER to connect via ssh.
 USAGE
   exit 1
 fi
+COLORED="\e[44m"
+NC="\e[49m"
 
 PUPPET_REPO=https://github.com/debuglevel/puppet-control.git
 IDENTITYFILE=""
@@ -21,11 +23,11 @@ EXISTINGUSER=${4:-ubuntu} # user to connect via ssh; defaults to "ubuntu"
 
 OPTIONS="-oStrictHostKeyChecking=no"
 
-echo "Copying bootstrap script... "
+echo -e "${COLORED}Copying bootstrap script...${NC}"
 scp ${IDENTITYFILE} ${OPTIONS} $(dirname $0)/bootstrap.sh ${EXISTINGUSER}@${TARGETHOST}:/tmp
-echo "Copied bootstrap script"
+echo -e "${COLORED}Copied bootstrap script${NC}"
 
 echo
-echo "Bootstrapping... "
+echo -e "${COLORED}Bootstrapping...${NC}"
 ssh -t ${IDENTITYFILE} ${OPTIONS} ${EXISTINGUSER}@${TARGETHOST} "sudo bash /tmp/bootstrap.sh ${PUPPET_REPO} ${HOSTNAME} ${BRANCH}"
-echo "Bootstrapped"
+echo -e "${COLORED}Bootstrapped${NC}"
