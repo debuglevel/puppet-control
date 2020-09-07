@@ -25,6 +25,7 @@ echo "Copying bootstrap script... "
 scp ${IDENTITYFILE} ${OPTIONS} $(dirname $0)/bootstrap.sh ${EXISTINGUSER}@${TARGETHOST}:/tmp
 echo "Copied bootstrap script"
 
+echo
 echo "Bootstrapping... "
 ssh -t ${IDENTITYFILE} ${OPTIONS} ${EXISTINGUSER}@${TARGETHOST} "sudo bash /tmp/bootstrap.sh ${PUPPET_REPO} ${HOSTNAME} ${BRANCH}"
 echo "Bootstrapped"
