@@ -1,7 +1,8 @@
 # Set up Puppet config and cron run
 class profile::puppet {
+  # ensure stopped and disabled puppet services, as they run from cron
   service { ['puppet', 'mcollective', 'pxp-agent']:
-    ensure => stopped, # Puppet runs from cron
+    ensure => stopped,
     enable => false,
   }
 
