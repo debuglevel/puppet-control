@@ -18,8 +18,9 @@ echo
 echo "Installing puppet..."
 source /etc/lsb-release
 apt-key adv --fetch-keys http://apt.puppetlabs.com/DEB-GPG-KEY-puppet
-wget http://apt.puppetlabs.com/puppetlabs-release-${DISTRIB_CODENAME}.deb
-dpkg -i puppetlabs-release-${DISTRIB_CODENAME}.deb
+cd /tmp
+wget http://apt.puppetlabs.com/puppet5-release-${DISTRIB_CODENAME}.deb
+dpkg -i puppet5-release-${DISTRIB_CODENAME}.deb
 apt-get update
 apt-get -y install git puppet-agent
 echo "Installed puppet"
