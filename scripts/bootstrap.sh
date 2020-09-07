@@ -11,6 +11,11 @@ HOSTNAME=$2
 BRANCH=$3
 
 echo
+echo -e "${COLORED}Loading distribution information:${NC}"
+source /etc/lsb-release
+echo "This host is running $DISTRIB_ID $DISTRIB_RELEASE ($DISTRIB_CODENAME) ($DISTRIB_DESCRIPTION)"
+
+echo
 echo -e "${COLORED}Setting hostname to ${HOSTNAME}...${NC}"
 hostname ${HOSTNAME}
 echo ${HOSTNAME} > /etc/hostname
@@ -18,7 +23,6 @@ echo -e "${COLORED}Set hostname to ${HOSTNAME}${NC}"
 
 echo
 echo -e "${COLORED}Installing puppet apt repository...${NC}"
-source /etc/lsb-release
 apt-key adv --fetch-keys http://apt.puppetlabs.com/DEB-GPG-KEY-puppet
 curl -o /tmp/puppet.deb http://apt.puppetlabs.com/puppet5-release-${DISTRIB_CODENAME}.deb
 dpkg -i /tmp/puppet.deb
