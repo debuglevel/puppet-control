@@ -15,12 +15,15 @@ echo ${HOSTNAME} > /etc/hostname
 echo "Set hostname to ${HOSTNAME}"
 
 echo
-echo "Installing puppet..."
+echo "Installing puppet apt repository..."
 source /etc/lsb-release
 apt-key adv --fetch-keys http://apt.puppetlabs.com/DEB-GPG-KEY-puppet
-cd /tmp
-wget http://apt.puppetlabs.com/puppet5-release-${DISTRIB_CODENAME}.deb
-dpkg -i puppet5-release-${DISTRIB_CODENAME}.deb
+curl -o /tmp/puppet.deb http://apt.puppetlabs.com/puppet5-release-${DISTRIB_CODENAME}.deb
+dpkg -i /tmp/puppet.deb
+echo "Installed puppet repository..."
+
+echo
+echo "Installing puppet..."
 apt-get update
 apt-get -y install git puppet-agent
 echo "Installed puppet"
