@@ -21,10 +21,10 @@ EXISTINGUSER=${4:-ubuntu} # user to connect via ssh; defaults to "ubuntu"
 
 OPTIONS="-oStrictHostKeyChecking=no"
 
-echo -n "Copying bootstrap script... "
+echo "Copying bootstrap script... "
 scp ${IDENTITYFILE} ${OPTIONS} $(dirname $0)/bootstrap.sh ${EXISTINGUSER}@${TARGETHOST}:/tmp
 echo "Copied bootstrap script"
 
-echo -n "Bootstrapping... "
+echo "Bootstrapping... "
 ssh ${IDENTITYFILE} ${OPTIONS} ${EXISTINGUSER}@${TARGETHOST} "sudo bash /tmp/bootstrap.sh ${PUPPET_REPO} ${HOSTNAME} ${BRANCH}"
-echo -n "Bootstrapped "
+echo "Bootstrapped"
