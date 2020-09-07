@@ -11,7 +11,8 @@ USAGE
 fi
 
 PUPPET_REPO=https://github.com/debuglevel/puppet-control.git
-IDENTITYFILE="-i $HOME/.ssh/puppet.pem"
+IDENTITYFILE=""
+#IDENTITYFILE="-i $HOME/.ssh/puppet.pem" # use this to use a custom private ssh key instead of ssh default
 
 TARGETHOST=$1
 HOSTNAME=${2}
@@ -22,8 +23,8 @@ OPTIONS="-oStrictHostKeyChecking=no"
 
 echo -n "Copying bootstrap script... "
 scp ${IDENTITYFILE} ${OPTIONS} $(dirname $0)/bootstrap.sh ${EXISTINGUSER}@${TARGETHOST}:/tmp
-echo "done."
+echo "Copied bootstrap script"
 
 echo -n "Bootstrapping... "
 ssh ${IDENTITYFILE} ${OPTIONS} ${EXISTINGUSER}@${TARGETHOST} "sudo bash /tmp/bootstrap.sh ${PUPPET_REPO} ${HOSTNAME} ${BRANCH}"
-echo "done."
+echo -n "Bootstrapped "
