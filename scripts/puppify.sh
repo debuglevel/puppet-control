@@ -1,6 +1,6 @@
 #!/bin/bash
 PUPPET_REPO=https://github.com/bitfield/control-repo-3.git
-IDENTITY="-i /Users/john/.ssh/pbg.pem"
+IDENTITY="-i $HOME/.ssh/puppet.pem"
 if [ "$#" -lt 2 ]; then
   cat <<USAGE
 Usage: $0 TARGET HOSTNAME [BRANCH]
