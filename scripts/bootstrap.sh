@@ -29,13 +29,12 @@ apt-get -y install git puppet-agent
 echo "Installed puppet"
 
 echo
-echo "Cloning puppet repository '${PUPPET_REPO}'..."
+echo "Cloning puppet repository '${PUPPET_REPO}' on branch ${BRANCH}..."
 cd /etc/puppetlabs/code/environments
 mv production production.orig
-git clone ${PUPPET_REPO} production
+git clone --branch ${BRANCH} ${PUPPET_REPO} production
 cd production
-git checkout ${BRANCH}
-echo "Cloned puppet repository '${PUPPET_REPO}' and checked out branch ${BRANCH}"
+echo "Cloned puppet repository '${PUPPET_REPO}' on branch ${BRANCH}"
 
 echo
 echo "Installing r10k..."
