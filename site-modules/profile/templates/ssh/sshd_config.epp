@@ -1,5 +1,5 @@
 <%- | Array[String] $allow_users | -%>
-# File is managed by Puppet
+# !!! File is managed by Puppet. Do not manually edit. !!!
 
 AcceptEnv LANG LC_*
 ChallengeResponseAuthentication no
