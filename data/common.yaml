@@ -11,7 +11,7 @@ ssh_allow_users:
 # users allowed to sudo
 sudoers:
   - "marc"
-# install these utility packages.
+# install utility packages
 # TODO: should probably be modifiable dependening on dsitribution version (changing package names)
 utilities:
   - htop
