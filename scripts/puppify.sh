@@ -2,10 +2,11 @@
 
 if [ "$#" -lt 2 ]; then
   cat <<USAGE
-Usage: $0 TARGETHOST HOSTNAME [BRANCH] [EXISTINGUSER]
+Usage: $0 TARGETHOST HOSTNAME [BRANCH] [EXISTINGUSER] [PUPPET_VERSION]
 Install Puppet on the node TARGETHOST (IP address or DNS name) and run 
 the bootstrap process. Set the hostname to HOSTNAME, and optionally use 
 the control repo branch BRANCH. Use EXISTINGUSER to connect via ssh.
+Use PUPPET_VERSION (5, 6) do define puppet version.
 USAGE
   exit 1
 fi
@@ -20,6 +21,7 @@ TARGETHOST=$1
 HOSTNAME=${2}
 BRANCH=${3:-production} # use "production" branch if none is provided
 EXISTINGUSER=${4:-ubuntu} # user to connect via ssh; defaults to "ubuntu"
+PUPPET_VERSION=${5:-5} # user to connect via ssh; defaults to "ubuntu"
 
 OPTIONS="-oStrictHostKeyChecking=no"
 
@@ -29,5 +31,5 @@ echo -e "${COLORED}Copied bootstrap script${NC}"
 
 echo
 echo -e "${COLORED}Bootstrapping...${NC}"
-ssh -t ${IDENTITYFILE} ${OPTIONS} ${EXISTINGUSER}@${TARGETHOST} "sudo bash /tmp/bootstrap.sh ${PUPPET_REPO} ${HOSTNAME} ${BRANCH}"
+ssh -t ${IDENTITYFILE} ${OPTIONS} ${EXISTINGUSER}@${TARGETHOST} "sudo bash /tmp/bootstrap.sh ${PUPPET_REPO} ${HOSTNAME} ${BRANCH} ${PUPPET_VERSION}"
 echo -e "${COLORED}Bootstrapped${NC}"

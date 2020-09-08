@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 PUPPET_REPO HOSTNAME BRANCH"
+if [ "$#" -ne 4 ]; then
+  echo "Usage: $0 PUPPET_REPO HOSTNAME BRANCH PUPPET_MAJOR_VERSION"
   exit 1
 fi
 COLORED="\e[44m"
@@ -9,10 +9,19 @@ NC="\e[49m"
 PUPPET_REPO=$1
 HOSTNAME=$2
 BRANCH=$3
+PUPPET_VERSION=$4
 
 echo
 echo -e "${COLORED}Loading distribution information:${NC}"
-source /etc/lsb-release
+source /etc/os-release
+DISTRIB_ID=$ID
+DISTRIB_RELEASE=$VERSION_ID
+DISTRIB_CODENAME=$VERSION_CODENAME
+DISTRIB_DESCRIPTION=$PRETTY_NAME
+if [[ "$DISTRIB_ID" -eq "debian" && "$DISTRIB_RELEASE" -eq "8" ]]; then
+  # missing codename in jessie /etc/os-release
+  DISTRIB_CODENAME="jessie"
+fi
 echo "This host is running $DISTRIB_ID $DISTRIB_RELEASE ($DISTRIB_CODENAME) ($DISTRIB_DESCRIPTION)"
 
 echo
@@ -24,15 +33,21 @@ echo -e "${COLORED}Set hostname to ${HOSTNAME}${NC}"
 echo
 echo -e "${COLORED}Installing puppet apt repository...${NC}"
 apt-key adv --fetch-keys http://apt.puppetlabs.com/DEB-GPG-KEY-puppet
-curl -o /tmp/puppet.deb http://apt.puppetlabs.com/puppet5-release-${DISTRIB_CODENAME}.deb
+curl -o /tmp/puppet.deb http://apt.puppetlabs.com/puppet${PUPPET_VERSION}-release-${DISTRIB_CODENAME}.deb
 dpkg -i /tmp/puppet.deb
-echo -e "${COLORED}Installed puppet repository...${NC}"
+RC=$?
+echo -e "${COLORED}Installed puppet repository (return code: $RC)${NC}"
+
+echo
+echo -e "${COLORED}Updating apt...${NC}"
+apt-get update
+echo -e "${COLORED}Updated puppet (return code: $RC)${NC}"
 
 echo
 echo -e "${COLORED}Installing puppet...${NC}"
-apt-get update
 apt-get -y install git puppet-agent
-echo -e "${COLORED}Installed puppet${NC}"
+RC=$?
+echo -e "${COLORED}Installed puppet (return code: $RC)${NC}"
 
 echo
 echo -e "${COLORED}Cloning puppet repository '${PUPPET_REPO}' on branch ${BRANCH}...${NC}"
@@ -45,14 +60,24 @@ echo -e "${COLORED}Cloned puppet repository '${PUPPET_REPO}' on branch ${BRANCH}
 echo
 echo -e "${COLORED}Installing r10k...${NC}"
 /opt/puppetlabs/puppet/bin/gem install r10k --no-rdoc --no-ri
-echo -e "${COLORED}Installed r10k${NC}"
+RC=$?
+echo -e "${COLORED}Installed r10k (return code: $RC)${NC}"
+
+exit
+# TODO: the following this are basically run-puppet.sh
+#       puppify.sh should call run-puppet.sh
+#       then, a test Dockerfile can be built even with failing r10k and puppet apply
 
 echo
 echo -e "${COLORED}Installing Puppetfile dependencies...${NC}"
 /opt/puppetlabs/puppet/bin/r10k puppetfile install --verbose
-echo -e "${COLORED}Installed Puppetfile dependencies${NC}"
+RC=$?
+echo -e "${COLORED}Installed Puppetfile dependencies (return code: $RC)${NC}"
 
 echo
 echo -e "${COLORED}Applying puppet...${NC}"
 /opt/puppetlabs/bin/puppet apply --environment=production /etc/puppetlabs/code/environments/production/manifests/
-echo -e "${COLORED}Applied puppet${NC}"
+RC=$?
+echo -e "${COLORED}Applied puppet (return code: $RC)${NC}"
+
+exit $RC

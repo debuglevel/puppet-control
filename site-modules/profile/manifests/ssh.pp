@@ -4,7 +4,7 @@ class profile::ssh {
 
   file { '/etc/ssh/sshd_config':
     content => epp('profile/ssh/sshd_config.epp', {
-      'ssh_allow_users' => lookup('allow_users', Array[String], 'unique'),
+      'allow_users' => lookup('ssh_allow_users', Array[String], 'unique'),
     }),
     notify  => Service['ssh'],
   }
