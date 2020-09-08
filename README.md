@@ -1,14 +1,34 @@
-This is an example Puppet infrastructure for the [Puppet Beginner's Guide, Third Edition](http://bitfieldconsulting.com/pbg3). It illustrates all the techniques and concepts described in the book, and draws them together into a complete working infrastructure which you can copy and use in your own projects. While you don't have to buy the book to use the demo repo, I'd obviously be very happy if you did.
+# Puppify and bootstrap
 
-To bootstrap a server, all you will need is the IP address or DNS name of the target server. Run the following command from the Puppet repo, replacing `TARGET_SERVER` with the address or name of the server, and `HOSTNAME` with the hostname that you want to set (for example `demo`):
+To bootstrap a server, you need:
 
-    scripts/puppify TARGET_SERVER HOSTNAME
+- IP address or DNS name of the target server
+- a hostname which the server should be identified with
+- git puppet repo branch (usually `production`)
+- an existing user (the one you defined at installation, was already imaged with (`pi` for Raspbian) or wahtever `cloud-init` or something the like did)
+- the puppet version you would like to use. (5 or 6; is rather a development feature than a real thing)
 
-The demo repo is built on a skeleton Puppet control repo available from [the Puppet GitHub account](https://github.com/puppetlabs/control-repo).
+## Puppify
 
-It adds everything required for a typical Puppet infrastructure, including user accounts and SSH keys, SSH and sudoers config, timezone and NTP settings, Hiera data, resources to automatically update and run Puppet, and a bootstrap script for bringing new servers under Puppet management. It also includes a Vagrantfile so you can try out the repo on a Vagrant virtual machine.
+Puppyfing and bootstrapping as server goes like this:
 
-You can also find all the code examples from the book in the [Puppet Beginner's Guide example repo](https://github.com/bitfield/puppet-beginners-guide-3).
+```
+scripts/puppify.sh TARGET_SERVER HOSTNAME         [BRANCH]   [EXISTINGUSER] [PUPPET_VERSION]
+scripts/puppify.sh 192.168.0.1   cat.petstore.org
+scripts/puppify.sh 192.168.0.1   cat.petstore.org production ubuntu         6
+```
+
+`puppify.sh` copies the `bootstrap.sh` and runs it.
+
+## Boostrap
+
+During bootstrap, puppet is installed. Ubuntu 16.04, 18.04, 20.04 and Debian 8, 9, 10 (and hopefully correspoding Rasbian distributions) are supported.
+
+# Origin
+
+This repo is a fork of [Puppet Beginner's Guide, Third Edition](https://github.com/bitfield/control-repo-3) which is based on [a skeleton Puppet control repo available from the Puppet GitHub account](https://github.com/puppetlabs/control-repo).
+
+Further snippets may be found at [Puppet Beginner's Guide example repo](https://github.com/bitfield/puppet-beginners-guide-3).
 
 # Cheat sheet
 
