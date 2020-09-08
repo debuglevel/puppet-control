@@ -12,4 +12,6 @@ You can also find all the code examples from the book in the [Puppet Beginner's 
 
 ```
 docker build -f puppet5.Dockerfile -t puppet5test .
+docker run -ti --rm puppet5test bash
+bash /tmp/run-puppet.sh
 ```

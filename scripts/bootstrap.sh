@@ -54,6 +54,11 @@ echo -e "${COLORED}Installing r10k...${NC}"
 RC=$?
 echo -e "${COLORED}Installed r10k (return code: $RC)${NC}"
 
+exit
+# TODO: the following this are basically run-puppet.sh
+#       puppify.sh should call run-puppet.sh
+#       then, a test Dockerfile can be built even with failing r10k and puppet apply
+
 echo
 echo -e "${COLORED}Installing Puppetfile dependencies...${NC}"
 /opt/puppetlabs/puppet/bin/r10k puppetfile install --verbose
