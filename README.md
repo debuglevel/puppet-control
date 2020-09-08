@@ -12,6 +12,6 @@ You can also find all the code examples from the book in the [Puppet Beginner's 
 
 ```
 docker build -f puppet6ubuntu20.Dockerfile -t puppet6ubuntu20 .
-docker run -ti --rm puppet6ubuntu20 bash
+docker run -ti --rm -v ${PWD}:/etc/puppetlabs/code/environments/production puppet6ubuntu20 bash
 bash /tmp/run-puppet.sh
 ```
