@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 PUPPET_REPO HOSTNAME BRANCH"
+if [ "$#" -ne 4 ]; then
+  echo "Usage: $0 PUPPET_REPO HOSTNAME BRANCH PUPPET_MAJOR_VERSION"
   exit 1
 fi
 COLORED="\e[44m"
@@ -9,10 +9,15 @@ NC="\e[49m"
 PUPPET_REPO=$1
 HOSTNAME=$2
 BRANCH=$3
+PUPPET_VERSION=$4
 
 echo
 echo -e "${COLORED}Loading distribution information:${NC}"
-source /etc/lsb-release
+source /etc/os-release
+DISTRIB_ID=$ID
+DISTRIB_RELEASE=$VERSION_ID
+DISTRIB_CODENAME=$VERSION_CODENAME
+DISTRIB_DESCRIPTION=$PRETTY_NAME
 echo "This host is running $DISTRIB_ID $DISTRIB_RELEASE ($DISTRIB_CODENAME) ($DISTRIB_DESCRIPTION)"
 
 echo
@@ -24,7 +29,7 @@ echo -e "${COLORED}Set hostname to ${HOSTNAME}${NC}"
 echo
 echo -e "${COLORED}Installing puppet apt repository...${NC}"
 apt-key adv --fetch-keys http://apt.puppetlabs.com/DEB-GPG-KEY-puppet
-curl -o /tmp/puppet.deb http://apt.puppetlabs.com/puppet5-release-${DISTRIB_CODENAME}.deb
+curl -o /tmp/puppet.deb http://apt.puppetlabs.com/puppet${PUPPET_VERSION}-release-${DISTRIB_CODENAME}.deb
 dpkg -i /tmp/puppet.deb
 RC=$?
 echo -e "${COLORED}Installed puppet repository (return code: $RC)${NC}"
