@@ -18,6 +18,10 @@ DISTRIB_ID=$ID
 DISTRIB_RELEASE=$VERSION_ID
 DISTRIB_CODENAME=$VERSION_CODENAME
 DISTRIB_DESCRIPTION=$PRETTY_NAME
+if [[ "$DISTRIB_ID" -eq "debian" && "$DISTRIB_RELEASE" -eq "8" ]]; then
+  # missing codename in jessie /etc/os-release
+  DISTRIB_CODENAME="jessie"
+fi
 echo "This host is running $DISTRIB_ID $DISTRIB_RELEASE ($DISTRIB_CODENAME) ($DISTRIB_DESCRIPTION)"
 
 echo

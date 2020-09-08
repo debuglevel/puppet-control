@@ -11,7 +11,7 @@ It adds everything required for a typical Puppet infrastructure, including user 
 You can also find all the code examples from the book in the [Puppet Beginner's Guide example repo](https://github.com/bitfield/puppet-beginners-guide-3).
 
 ```
-docker build -f puppet5.Dockerfile -t puppet5test .
-docker run -ti --rm puppet5test bash
+docker build -f puppet6ubuntu20.Dockerfile -t puppet6ubuntu20 .
+docker run -ti --rm puppet6ubuntu20 bash
 bash /tmp/run-puppet.sh
 ```
