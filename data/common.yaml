@@ -11,7 +11,10 @@ ssh_allow_users:
 # users allowed to sudo
 sudoers:
   - "marc"
+utilities:
+  - htop
 classes:
+  - profile::utilities
   - profile::ntp
   - profile::puppet
   - profile::ssh
