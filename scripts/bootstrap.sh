@@ -26,13 +26,19 @@ echo -e "${COLORED}Installing puppet apt repository...${NC}"
 apt-key adv --fetch-keys http://apt.puppetlabs.com/DEB-GPG-KEY-puppet
 curl -o /tmp/puppet.deb http://apt.puppetlabs.com/puppet5-release-${DISTRIB_CODENAME}.deb
 dpkg -i /tmp/puppet.deb
-echo -e "${COLORED}Installed puppet repository...${NC}"
+RC=$?
+echo -e "${COLORED}Installed puppet repository (return code: $RC)${NC}"
+
+echo
+echo -e "${COLORED}Updating apt...${NC}"
+apt-get update
+echo -e "${COLORED}Updated puppet (return code: $RC)${NC}"
 
 echo
 echo -e "${COLORED}Installing puppet...${NC}"
-apt-get update
 apt-get -y install git puppet-agent
-echo -e "${COLORED}Installed puppet${NC}"
+RC=$?
+echo -e "${COLORED}Installed puppet (return code: $RC)${NC}"
 
 echo
 echo -e "${COLORED}Cloning puppet repository '${PUPPET_REPO}' on branch ${BRANCH}...${NC}"
@@ -45,14 +51,19 @@ echo -e "${COLORED}Cloned puppet repository '${PUPPET_REPO}' on branch ${BRANCH}
 echo
 echo -e "${COLORED}Installing r10k...${NC}"
 /opt/puppetlabs/puppet/bin/gem install r10k --no-rdoc --no-ri
-echo -e "${COLORED}Installed r10k${NC}"
+RC=$?
+echo -e "${COLORED}Installed r10k (return code: $RC)${NC}"
 
 echo
 echo -e "${COLORED}Installing Puppetfile dependencies...${NC}"
 /opt/puppetlabs/puppet/bin/r10k puppetfile install --verbose
-echo -e "${COLORED}Installed Puppetfile dependencies${NC}"
+RC=$?
+echo -e "${COLORED}Installed Puppetfile dependencies (return code: $RC)${NC}"
 
 echo
 echo -e "${COLORED}Applying puppet...${NC}"
 /opt/puppetlabs/bin/puppet apply --environment=production /etc/puppetlabs/code/environments/production/manifests/
-echo -e "${COLORED}Applied puppet${NC}"
+RC=$?
+echo -e "${COLORED}Applied puppet (return code: $RC)${NC}"
+
+exit $RC
