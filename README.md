@@ -9,3 +9,7 @@ The demo repo is built on a skeleton Puppet control repo available from [the Pup
 It adds everything required for a typical Puppet infrastructure, including user accounts and SSH keys, SSH and sudoers config, timezone and NTP settings, Hiera data, resources to automatically update and run Puppet, and a bootstrap script for bringing new servers under Puppet management. It also includes a Vagrantfile so you can try out the repo on a Vagrant virtual machine.
 
 You can also find all the code examples from the book in the [Puppet Beginner's Guide example repo](https://github.com/bitfield/puppet-beginners-guide-3).
+
+```
+docker build -f puppet5.Dockerfile -t puppet5test .
+```
