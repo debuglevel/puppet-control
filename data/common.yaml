@@ -1,4 +1,5 @@
 ---
+message: "This node is using common data"
 users:
   "marc":
     comment: "Marc Kohaupt"

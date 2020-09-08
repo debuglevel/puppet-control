@@ -1,13 +1,13 @@
 ---
 version: 5
+
 defaults:
-  # The default value for "datadir" is "data" under the same directory as the hiera.yaml file (this file)
-  # When specifying a datadir, make sure the directory exists.
-  # See https://docs.puppet.com/puppet/latest/environments.html for further details on environments.
-  # datadir: data
-  # data_hash: yaml_data
+  datadir: "data"
+
 hierarchy:
-  - name: "Per-node data"
-    path: "nodes/%{facts.hostname}.yaml"
-  - name: "Common data"
-    path: "common.yaml"
+  - name: "Yaml backend"
+    data_hash: yaml_data
+    paths:
+      - "nodes/%{trusted.certname}.yaml"
+      #- "nodes/%{facts.hostname}.yaml"
+      - "common.yaml"
