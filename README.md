@@ -12,8 +12,16 @@ You can also find all the code examples from the book in the [Puppet Beginner's 
 
 # Cheat sheet
 
-Run puppet-lint via docker: (TODO: add a version to image)
+Run puppet-lint via docker:
 
 ```
 docker run -ti --rm -v ${PWD}:/repo puppet/puppet-dev-tools:4.x puppet-lint /repo
+```
+
+Run testing docker image:
+
+```
+docker build -f puppet6ubuntu20.Dockerfile -t puppet6ubuntu20 .
+docker run -ti --rm -v ${PWD}:/etc/puppetlabs/code/environments/production puppet6ubuntu20 bash
+bash /tmp/run-puppet.sh
 ```
