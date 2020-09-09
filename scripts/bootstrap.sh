@@ -70,7 +70,7 @@ exit
 
 echo
 echo -e "${COLORED}Installing Puppetfile dependencies...${NC}"
-/opt/puppetlabs/puppet/bin/r10k puppetfile install --verbose
+/opt/puppetlabs/puppet/bin/r10k puppetfile install --verbose=info
 RC=$?
 echo -e "${COLORED}Installed Puppetfile dependencies (return code: $RC)${NC}"
 
