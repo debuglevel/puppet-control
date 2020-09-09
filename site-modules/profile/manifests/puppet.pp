@@ -6,7 +6,8 @@ class profile::puppet {
     enable => false,
   }
 
-  cron { 'run-puppet':
+  include cron # ensures cron is installed
+  cron::job { 'run-puppet':
     ensure  => present,
     command => '/usr/local/bin/run-puppet',
     minute  => '*/10',
