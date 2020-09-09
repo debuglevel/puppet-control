@@ -50,18 +50,18 @@ RC=$?
 echo -e "${COLORED}Installed puppet (return code: $RC)${NC}"
 
 echo
+echo -e "${COLORED}Installing r10k...${NC}"
+/opt/puppetlabs/puppet/bin/gem install r10k --no-rdoc --no-ri
+RC=$?
+echo -e "${COLORED}Installed r10k (return code: $RC)${NC}"
+
+echo
 echo -e "${COLORED}Cloning puppet repository '${PUPPET_REPO}' on branch ${BRANCH}...${NC}"
 cd /etc/puppetlabs/code/environments
 mv production production.orig
 git clone --branch ${BRANCH} ${PUPPET_REPO} production
 cd production
 echo -e "${COLORED}Cloned puppet repository '${PUPPET_REPO}' on branch ${BRANCH}${NC}"
-
-echo
-echo -e "${COLORED}Installing r10k...${NC}"
-/opt/puppetlabs/puppet/bin/gem install r10k --no-rdoc --no-ri
-RC=$?
-echo -e "${COLORED}Installed r10k (return code: $RC)${NC}"
 
 exit
 # TODO: the following this are basically run-puppet.sh
