@@ -1,4 +1,4 @@
 # Synchronize with NTP
-class profile::ntp {
+class profile::ntpclient {
   include ::ntp
 }

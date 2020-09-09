@@ -1,5 +1,5 @@
 # Manage sshd config
-class profile::ssh {
+class profile::sshserver {
   ensure_packages(['openssh-server'])
 
   file { '/etc/ssh/sshd_config':

@@ -44,10 +44,10 @@ utilities:
   - reptyr
   
 classes:
-  - profile::utilities
-  - profile::ntp
-  - profile::puppet
-  - profile::ssh
+  - profile::utilities # useful tools
+  - profile::ntpclient
+  - profile::puppetclient
+  - profile::sshserver
   - profile::sudo
   - profile::timezone
   - profile::users
