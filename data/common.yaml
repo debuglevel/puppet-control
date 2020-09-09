@@ -14,7 +14,35 @@ sudoers:
 # install utility packages
 # TODO: should probably be modifiable dependening on dsitribution version (changing package names)
 utilities:
+  - sudo
+  - net-tools
+  - screen
+  - tmux
+  - mc
+  - nano
+  - ncdu
+  - nmap
+  - chkrootkit
+  - iotop
   - htop
+  - ntpdate
+  - wget
+  - curl
+  - aria2
+  - iftop
+  - pv
+  - renameutils
+  - dstat
+  - mtr
+  - multitail
+  - netcat
+  - mosh
+  - aptitude
+  - secure-delete
+  - dnsutils
+  - locate
+  - reptyr
+  
 classes:
   - profile::utilities
   - profile::ntp
