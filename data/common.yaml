@@ -48,6 +48,6 @@ classes:
   - profile::ntp
   - profile::puppet
   - profile::ssh
-  - profile::sudoers
+  - profile::sudo
   - profile::timezone
   - profile::users
