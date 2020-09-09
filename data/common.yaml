@@ -44,7 +44,6 @@ utilities:
   - reptyr
   
 classes:
-  #- profile::cron
   - profile::utilities
   - profile::ntp
   - profile::puppet
