@@ -9,7 +9,7 @@ users:
 ssh_allow_users:
   - "marc"
 # users allowed to sudo
-sudoers:
+sudo_users:
   - "marc"
 # install utility packages
 # TODO: should probably be modifiable dependening on dsitribution version (changing package names)
