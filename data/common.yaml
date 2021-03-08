@@ -12,7 +12,7 @@ ssh_allow_users:
 sudo_users:
   - "marc"
 # install utility packages
-# TODO: should probably be modifiable dependening on dsitribution version (changing package names)
+# TODO: should probably be modifiable dependening on distribution version (changing package names)
 utilities:
   - sudo
   - net-tools

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# TODO: this file is seems not to be used
+# TODO: this file seems not to be used
 
 environment=${PUPPET_ENV:-production}
 
